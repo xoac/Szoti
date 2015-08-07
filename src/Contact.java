@@ -1,5 +1,7 @@
 import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
+//set remove repiting items;
+
 /**
  * Created by sylwek on 06.08.15.
  */
@@ -10,13 +12,14 @@ public class Contact {
     private String PhoneNumber, EmailAdress, Url;
     private String AdditionalInformation, Status;
 
+
+
     public Contact() {
 
     }
 
     public static void main(String[] args) throws InvalidValue {
-        Contact Artur = new Contact();
-        Artur.setUrl("");
+
     }
 
     public String getId() {
