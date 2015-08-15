@@ -4,14 +4,16 @@ import org.omg.CORBA.DynAnyPackage.InvalidValue;
  * Created by sylwek on 09.08.15.
  */
 public class Company {
+    private static int idCreator = 0;
 
-
-    private String CompanyName;
+    private int id;
+    private String CompanyName, PersonToContact;
     private String PostCode, City, Street;
     private String[] PhoneNumber, Emails, Urls;
     private Investment[] Investments;
 
     Company() {
+        id = ++idCreator;
         PhoneNumber = new String[0];
         Emails      = new String[0];
         Urls        = new String[0];
@@ -19,6 +21,17 @@ public class Company {
     }
 
     public static void main(String[] args) throws InvalidValue {
+
+        Investment Y = new Investment();
+        Y.setInvestmentName("Echo Investment sp z o. o.");
+        Y.setPostCode("00-130");
+        Y.setCity("Warszawa");
+        Y.setStreet("Krakowska");
+        Y.setSector("Sektor");
+        Y.setUnderSector("Podsektor");
+        Y.setValueOfInvestment("100mln");
+        Y.setVoivodeship("Berlinskie");
+
         Company X = new Company();
         X.addEmail("andel@andel.pl");
         X.setCompanyName("Andel-Polska s. z o.o");
@@ -27,27 +40,28 @@ public class Company {
         X.addUrl("www.andel.pl");
         X.addPhoneNumber("732 - 255 - 467");
         X.addPhoneNumber("(022) 122 144 14");
-        X.print();
+        X.addInvestment(Y);
         X.printWithInvestments();
     }
 
     public void print(){
 
         System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
-        System.out.printf("%-12s %-30s %10s %-25s %n", "Nazwa firmy", "\033[1m" + CompanyName + "\033[0m", "Miasto: ", "\033[1m" + PostCode + " " + City + "\033[0m");
+        System.out.printf("%-12s %-30s %10s %-25s %n", "Nazwa firmy", "\033[1m" + CompanyName + "\033[0m", "Miasto: ", "\033[1m" + PostCode + " " + City + "\033[0m ul. \033[1m" + getStreet() + "\033[0m");
         System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n", "Telefon: ", "\033[1m" + PhoneNumber[0] + "\033[0m", "E-mail: ", "\033[1m" + Emails[0] +
                 "\033[0m", "WWW: ", "\033[1m" + Urls[0] + "\033[0m");
-        System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
     }
 
     public void printWithInvestments() {
 
-        System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
-        System.out.printf("%-12s %-30s %10s %-25s %n",  "Nazwa firmy", "\033[1m" + CompanyName+ "\033[0m", "Miasto: ", "\033[1m" + PostCode +" " + City +  "\033[0m" );
-        System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n","Telefon: ","\033[1m" + PhoneNumber[0]+ "\033[0m","E-mail: ", "\033[1m" + Emails[0]+
-                "\033[0m", "WWW: ", "\033[1m" + Urls[0]+ "\033[0m");
-        System.out.println("\t*********************************************************");
-        System.out.printf("\033[1m" + "\tInwestycje: " + "\033[0m" + "%n");
+        print();
+        for(int i = 0; i< Investments.length; i++) {
+            System.out.println("\t*********************************************************");
+            System.out.printf("\033[1m" + "\tInwestycja nr: " + (i+1) + "\033[0m" + "%n");
+
+            Investments[i].print();
+        }
+
         System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
     }
 
