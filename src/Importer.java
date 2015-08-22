@@ -24,6 +24,12 @@ public class Importer {
     private Iterator<Cell> cellIterator;
     private FileInputStream file;
     private Company[] Companies;
+    private int amountOfCompanies=0;
+
+    public void print(){
+        for(int i=0; i<amountOfCompanies;i++)
+            Companies[i].printWithInvestments();
+    }
 
     Importer(String _pathToFileXls) {
         try {
@@ -38,7 +44,7 @@ public class Importer {
             //Iterate through each rows from first sheet
             rowIterator = sheet.iterator();
 
-            Companies = new Company[sheet.getLastRowNum()];
+            Companies = new Company[sheet.getLastRowNum()]; // Wielkość jest zbyt duża bo nie uwzględnia powtórzeń firmy
 
             if (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -102,13 +108,16 @@ public class Importer {
     }
 
     public static void main(String[] args) {
+
         Importer test = new Importer("/home/sylwek/git/Szoti/export.xls");
+        test.print();
     }
 
     private void fullFillCompanies() throws InvalidValue {
-        Investment inwestycja = new Investment();
+
         Company firama;
         while (rowIterator.hasNext()) {
+            Investment inwestycja = new Investment();
             Row row = rowIterator.next();
 
             Cell cell = row.getCell(IDnr);
@@ -124,6 +133,15 @@ public class Importer {
             inwestycja.setValueOfInvestment(getStringfromCell(row, WartoscNr));
 
             firama = fulFillCompany(getStringfromCell(row,Firama1Nr));
+            firama.addInvestment(inwestycja);
+            boolean CompanyInTheBase = false;
+            for(int j=0;j<amountOfCompanies;j++)
+                if(Companies[j].getCompanyName().trim().equals(firama.getCompanyName().trim())) {
+                    Companies[j].addInvestment(inwestycja);
+                    CompanyInTheBase = true;
+                }
+            if(!CompanyInTheBase)
+                Companies[amountOfCompanies++] = firama;
 
         }
     }
@@ -142,6 +160,7 @@ public class Importer {
 
 
     }
+
 
     private Company fulFillCompany(String _rowWithInformation) throws InvalidValue {
         Company tmp = new Company();
@@ -163,43 +182,57 @@ public class Importer {
                 tmp.setCity(s.trim());
             }
             else if(i==2) {
-                String s = str.nextElement().toString();
+                String s = str.nextElement().toString().trim();
                 s=s.replaceAll("ul.","").trim();
                 tmp.setStreet(s.trim());
             }
             else if(i == 3){ //adding phone numbers
                 String s = str.nextElement().toString().trim();
-                if(!s.matches("tel:.*")) {
-                    s = str.nextElement().toString();
+                while(!s.matches("tel:.*")) {
+                    s = str.nextElement().toString().trim();
                 }
                 if(s.matches("tel:.*")) {
-                    s=s.replaceAll("tel:","");
+                    s=s.replaceAll("tel:","").trim();
                     tmp.addPhoneNumber(s);
                 }
                 s=str.nextElement().toString().trim();
-                System.out.println(s);
-                while(!s.matches("fax:.*")){
+                while(!s.matches("fax:.*")){ //adding phone numbers until find "fax:" into string
                     tmp.addPhoneNumber(s);
-                        s=str.nextElement().toString().trim();
+                    s=str.nextElement().toString().trim();
                 }
             }
-            else if(i == 4){
-                String s = str.nextElement().toString();
-                Matcher m = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@").matcher(s);
+            else if(i == 4){ //adding mails
+                String s = str.nextElement().toString().trim();
+                while (s.matches("^\\d?-?(\\d{3})?-?\\d{3}-?\\d{4}$")) {
+                    System.out.println(str.nextElement().toString().trim());
+                }
+                String EmailRegex =  "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
+                Matcher m = Pattern.compile(EmailRegex,Pattern.CASE_INSENSITIVE).matcher(s);
                 while(m.find())
                     tmp.addEmail(m.group().toString().trim());
+               if(!str.hasMoreElements()) {
+                   m = Pattern.compile("^((?!@).)*$").matcher(s);
+                   if(m.find() && !m.group().equals(""))
+                       tmp.addUrl(m.group().toString().trim()); //add urls if there was no emails
+               }
+                System.out.println();
             }
-            else
-                str.nextElement();
-
-
+            else if(i==5){ //adding urls
+                while (str.hasMoreElements()) {
+                    String s = str.nextElement().toString().trim();
+                    Matcher m = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?").matcher(s);
+                    while (m.find())
+                        tmp.addUrl(m.group().toString().trim());
+                }
+            }
+            else {
+               str.nextElement();
+                System.out.println("niepoprawne działanie programu, niespodziewane elementy");
+            }
 
         i++;
         }
-
-
-
-        
 
         return tmp;
     }

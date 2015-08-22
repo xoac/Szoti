@@ -46,10 +46,13 @@ public class Company {
 
     public void print(){
 
-        System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
-        System.out.printf("%-12s %-30s %10s %-25s %n", "Nazwa firmy", "\033[1m" + CompanyName + "\033[0m", "Miasto: ", "\033[1m" + PostCode + " " + City + "\033[0m ul. \033[1m" + getStreet() + "\033[0m");
-        System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n", "Telefon: ", "\033[1m" + PhoneNumber[0] + "\033[0m", "E-mail: ", "\033[1m" + Emails[0] +
-                "\033[0m", "WWW: ", "\033[1m" + Urls[0] + "\033[0m");
+        if(PhoneNumber.length>0 && Emails.length>0 && Urls.length>0) {
+            System.out.printf("%-15s %15s %n", "----------", "------------------------------------------------------------------");
+            System.out.printf("%-12s %-30s %10s %-25s %n", "Nazwa firmy", "\033[1m" + CompanyName + "\033[0m", "Miasto: ", "\033[1m" + PostCode + " " + City + "\033[0m ul. \033[1m" + getStreet() + "\033[0m");
+            System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n", "Telefon: ", "\033[1m" + PhoneNumber[0] + "\033[0m", "E-mail: ", "\033[1m" + Emails[0] +
+                    "\033[0m", "WWW: ", "\033[1m" + Urls[0] + "\033[0m");
+        }else
+            System.out.println("Bład w :" + CompanyName);
     }
 
     public void printWithInvestments() {

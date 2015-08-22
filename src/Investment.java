@@ -28,6 +28,10 @@ public class Investment  {
         ValueOfInvestment = null;
     }
 
+    public Investment Investment(Investment _i){
+        return _i;
+    }
+
     public void setInvestmentName(String _investmentname) {
         InvestmentName = _investmentname;
     }
