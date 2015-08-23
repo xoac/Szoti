@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -31,16 +32,19 @@ public class Importer {
             Companies[i].printWithInvestments();
     }
 
+    public int getAmountOfCompanies(){
+        return amountOfCompanies;
+    }
+
     Importer(String _pathToFileXls) {
         try {
-            file = new FileInputStream(new File(_pathToFileXls));
+            //readTheCompanieFromTheBase();
 
+            file = new FileInputStream(new File(_pathToFileXls));
             //Get the workbook instance for XLS file
             workbook = new HSSFWorkbook(file);
-
             //Get first sheet from the workbook
             sheet = workbook.getSheetAt(0);
-
             //Iterate through each rows from first sheet
             rowIterator = sheet.iterator();
 
@@ -91,8 +95,8 @@ public class Importer {
                         Branza1Nr = i;
 
                 }
-
                 fullFillCompanies();
+                addCompaniesToTheBase();
 
 
             }
@@ -107,10 +111,20 @@ public class Importer {
         }
     }
 
-    public static void main(String[] args) {
+    private void addCompaniesToTheBase() {
 
+
+    }
+
+    public static void main(String[] args) throws SQLException {
+       // ReadFromDB rd = new ReadFromDB();
         Importer test = new Importer("/home/sylwek/git/Szoti/export.xls");
-        test.print();
+        ExportToDB ex = new ExportToDB(test.getCompanies());
+
+    }
+
+    private Company[] getCompanies() {
+        return Companies;
     }
 
     private void fullFillCompanies() throws InvalidValue {
@@ -121,7 +135,7 @@ public class Importer {
             Row row = rowIterator.next();
 
             Cell cell = row.getCell(IDnr);
-           inwestycja.setInvestmentId((int) cell.getNumericCellValue());
+            inwestycja.setInvestmentId((int) cell.getNumericCellValue());
 
             inwestycja.setInvestmentName(getStringfromCell(row, NazwaNr));
             inwestycja.setVoivodeship(getStringfromCell(row, WojewodztwoNr));
@@ -130,6 +144,7 @@ public class Importer {
             inwestycja.setStreet(getStringfromCell(row, UlicaNr));
             inwestycja.setSector(getStringfromCell(row, SektorNr));
             inwestycja.setUnderSector(getStringfromCell(row, PodsektorNr));
+            inwestycja.setStage(getStringfromCell(row,EtapNr));
             inwestycja.setValueOfInvestment(getStringfromCell(row, WartoscNr));
 
             firama = fulFillCompany(getStringfromCell(row,Firama1Nr));
@@ -160,7 +175,6 @@ public class Importer {
 
 
     }
-
 
     private Company fulFillCompany(String _rowWithInformation) throws InvalidValue {
         Company tmp = new Company();
@@ -203,7 +217,7 @@ public class Importer {
             }
             else if(i == 4){ //adding mails
                 String s = str.nextElement().toString().trim();
-                while (s.matches("^\\d?-?(\\d{3})?-?\\d{3}-?\\d{4}$")) {
+                while (s.matches("^\\d?-?(\\d{3})?-?\\d{3}-?\\d{4}$")) {        //dont know what is it :o
                     System.out.println(str.nextElement().toString().trim());
                 }
                 String EmailRegex =  "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"

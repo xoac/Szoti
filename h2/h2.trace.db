@@ -1,0 +1,139 @@
+08-23 10:54:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Nieznany typ danych: "INTINVESTMENTNAME"
+Unknown data type: "INTINVESTMENTNAME"; SQL statement:
+CREATE TABLE IF NOT EXISTS INVESTMENT(id int AUTO_INCREMENT NOT NULL,InvestemntId intInvestmentName varchar(255) NOT NULL,PostCode varchar(255),City varchar(255),Street varchar(255),Voivodeship varchar(255),Sektor varchar(255),UnderSector varchar(255),ValueOfInvestment varchar(255),CompanyID int NOT NULL,PRIMARY KEY(id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at ExportToDB.insertWithStatementCompany(ExportToDB.java:83)
+	at ExportToDB.<init>(ExportToDB.java:73)
+	at Importer.main(Importer.java:122)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)
+08-23 10:56:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "SELECT * FROM COMPANY ID ID"
+Syntax error in SQL statement "SELECT * FROM COMPANY ID ID"; SQL statement:
+SELECT * FROM COMPANY ID ID [42000-176]
+08-23 10:56:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd konwersji danych "'' (COMPANY: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085)"
+Data conversion error converting "'' (COMPANY: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085)"; SQL statement:
+INSERT INTO "PUBLIC"."COMPANY"("ID","COMPANYNAME","POSTCODE","CITY","STREET","PHONENUMBER1","PHONENUMBER2","EMAIL1","EAMIL2","URL1","URL2")VALUES(?,?,?,?,?,?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11) [22018-176]
+08-23 10:56:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd konwersji danych "'' (COMPANY: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085)"
+Data conversion error converting "'' (COMPANY: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_42F9E1BC_49E5_495A_8E96_E64743809085)"; SQL statement:
+INSERT INTO "PUBLIC"."COMPANY"("ID","COMPANYNAME","POSTCODE","CITY","STREET","PHONENUMBER1","PHONENUMBER2","EMAIL1","EAMIL2","URL1","URL2")VALUES(?,?,?,?,?,?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11) [22018-176]
+08-23 10:57:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "DROP DOWN[*] COMPANY"; oczekiwano "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"
+Syntax error in SQL statement "DROP DOWN[*] COMPANY"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+DROP DOWN COMPANY [42001-176]
+08-23 11:05:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "INSERT INTO COMPANY (COMPANYNAME,POSTCODE,CITY,STREET,PHONENUMBER1,PHONENUMBER2,EMAIL1 ,EAMIL2,URL1 ,URL2,ID) VALUES  ' Wechta Sp. z o.o. S.K.A. '[*],  ' 62-400 ',  ' Słupca ',  ' Poznańska 41 ',  ' (61) 866 30 14 ',  ' (61) 868 57 41 ',  ' mieszkania@wechta.pl ',  '  ',  ' www.wechta.pl ',  '  ',  "; oczekiwano "("
+Syntax error in SQL statement "INSERT INTO COMPANY (COMPANYNAME,POSTCODE,CITY,STREET,PHONENUMBER1,PHONENUMBER2,EMAIL1 ,EAMIL2,URL1 ,URL2,ID) VALUES  ' Wechta Sp. z o.o. S.K.A. '[*],  ' 62-400 ',  ' Słupca ',  ' Poznańska 41 ',  ' (61) 866 30 14 ',  ' (61) 868 57 41 ',  ' mieszkania@wechta.pl ',  '  ',  ' www.wechta.pl ',  '  ',  "; expected "("; SQL statement:
+INSERT INTO COMPANY (CompanyName,PostCode,City,Street,PhoneNumber1,PhoneNumber2,Email1 ,Eamil2,Url1 ,Url2,id) VALUES  ' Wechta Sp. z o.o. S.K.A. ',  ' 62-400 ',  ' Słupca ',  ' Poznańska 41 ',  ' (61) 866 30 14 ',  ' (61) 868 57 41 ',  ' mieszkania@wechta.pl ',  '  ',  ' www.wechta.pl ',  '  ',  [42001-176]
+08-23 11:10:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Niezgodna ilość kolumn
+Column count does not match; SQL statement:
+INSERT INTO COMPANY (CompanyName,PostCode,City,Street,PhoneNumber1,PhoneNumber2,Email1 ,Eamil2,Url1 ,Url2,id) VALUES ( ' Wechta Sp. z o.o. S.K.A. ',  ' 62-400 ',  ' Słupca ',  ' Poznańska 41 ',  ' (61) 866 30 14 ',  ' (61) 868 57 41 ',  ' mieszkania@wechta.pl ',  '  ',  ' www.wechta.pl ',  '  ')  [21002-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.command.dml.Insert.prepare(Insert.java:266)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at ExportToDB.insertWithStatementCompany(ExportToDB.java:97)
+	at ExportToDB.<init>(ExportToDB.java:73)
+	at Importer.main(Importer.java:122)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)
+08-23 11:12:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Kolumna "INVESTMENTID" nie istnieje
+Column "INVESTMENTID" not found; SQL statement:
+INSERT INTO INVESTMENT (InvestmentId,InvestmentName,PostCode,City,Street,Voivodeship,Sektor,UnderSector ,ValueOfInvestment) VALUES (  31 ,  ' Korona Tower ',  ' 61-874 ',  ' Poznań ',  ' między  Niepodległości,  Powstańców Wielkopolskich i Kościuszki ',  ' wielkopolskie ',  ' niemieszkaniowy ',  ' budynki biurowe ',  ' 500 mln - 1 mld ')  [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at ExportToDB.insertWithStatementCompany(ExportToDB.java:114)
+	at ExportToDB.<init>(ExportToDB.java:73)
+	at Importer.main(Importer.java:122)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)
+08-23 11:13:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Kolumna "INVESTMENTID" nie istnieje
+Column "INVESTMENTID" not found; SQL statement:
+INSERT INTO INVESTMENT (InvestmentId,InvestmentName,PostCode,City,Street,Voivodeship,Sektor,UnderSector ,ValueOfInvestment) VALUES (  31 ,  ' Korona Tower ',  ' 61-874 ',  ' Poznań ',  ' między  Niepodległości,  Powstańców Wielkopolskich i Kościuszki ',  ' wielkopolskie ',  ' niemieszkaniowy ',  ' budynki biurowe ',  ' 500 mln - 1 mld ')  [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at ExportToDB.insertWithStatementCompany(ExportToDB.java:114)
+	at ExportToDB.<init>(ExportToDB.java:73)
+	at Importer.main(Importer.java:122)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)
+08-23 11:14:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "DROP TABLE *"; oczekiwano "identifier"
+Syntax error in SQL statement "DROP TABLE *"; expected "identifier"; SQL statement:
+DROP TABLE * [42001-176]
+08-23 11:17:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabela "PERSON" nie istnieje
+Table "PERSON" not found; SQL statement:
+select * from PERSON [42102-176]
+08-23 11:26:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "INFORMATION_SCHEMA[*].TABLES"; oczekiwano "INSERT, {"
+Syntax error in SQL statement "INFORMATION_SCHEMA[*].TABLES"; expected "INSERT, {"; SQL statement:
+INFORMATION_SCHEMA.TABLES [42001-176]

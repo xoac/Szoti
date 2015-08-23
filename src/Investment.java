@@ -1,39 +1,40 @@
 import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
-import java.util.Iterator;
-import java.util.Scanner;
-
 /**
  * Created by sylwek on 09.08.15.
  */
-public class Investment  {
-    public static int idcreator=0;
+public class Investment {
+    public static int idcreator = 0;
     private int id;
     private int InvestmentId;
     private String InvestmentName;
     private String PostCode, City, Street, Voivodeship;
-    private String Sector, UnderSector;
+    private String Sector, UnderSector, Stage;
     private String ValueOfInvestment;
-
-    public void setInvestmentId(int _investmentid){
-        InvestmentId = _investmentid;
-    }
-
-    public String getInvestmentName() {
-        return InvestmentName;
-    }
 
     public Investment() {
         id = ++idcreator;
         ValueOfInvestment = null;
     }
 
-    public Investment Investment(Investment _i){
-        return _i;
+    public String getStage() {
+        return Stage;
+    }
+
+    public void setStage(String _stage) {
+        Stage = _stage;
+    }
+
+    public String getInvestmentName() {
+        return InvestmentName;
     }
 
     public void setInvestmentName(String _investmentname) {
         InvestmentName = _investmentname;
+    }
+
+    public Investment Investment(Investment _i) {
+        return _i;
     }
 
     public String getStreet() {
@@ -76,7 +77,6 @@ public class Investment  {
         UnderSector = _undersector;
     }
 
-
     public String getCity() {
         return this.City;
     }
@@ -97,8 +97,20 @@ public class Investment  {
     }
 
     public void print() {
-        System.out.printf("%-12s %-30s %10s %-25s %n",  "\tInwestycja", "\033[1m" + InvestmentName+ "\033[0m", "Miasto: ", "\033[1m" + PostCode +" " + City +"\033[0m ul. \033[1m"+ Street + "\033[0m" );
-        System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n","\tSektor: ","\033[1m" + Sector + "\033[0m","E-mail: ", "\033[1m" + UnderSector
-                + "\033[0m", "Wartość: ", "\033[1m" + ValueOfInvestment+ "\033[0m");
+        System.out.printf("%-12s %-30s %10s %-25s %n", "\tInwestycja", "\033[1m" + InvestmentName + "\033[0m", "Miasto: ", "\033[1m" + PostCode + " " + City + "\033[0m ul. \033[1m" + Street + "\033[0m");
+        System.out.printf("%-12s %-30s %10s %-25s %-5s %-20s %n", "\tSektor: ", "\033[1m" + Sector + "\033[0m", "E-mail: ", "\033[1m" + UnderSector
+                + "\033[0m", "Wartość: ", "\033[1m" + ValueOfInvestment + "\033[0m");
+    }
+
+    public int getInvestmentId() {
+        return InvestmentId;
+    }
+
+    public void setInvestmentId(int _investmentid) {
+        InvestmentId = _investmentid;
+    }
+
+    public int getId() {
+        return id;
     }
 }
